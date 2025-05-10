@@ -27,7 +27,7 @@ $images = array_diff(scandir($uploadDir), ['.', '..']);
             $meta = file_exists($metaFile) ? json_decode(file_get_contents($metaFile), true) : [];
             ?>
             <div class="carousel-item <?= $first ? 'active' : '' ?>">
-                <img src="<?= $uploadDir . $img ?>" class="d-block w-100">
+                <img width="960" src="<?= $uploadDir . $img ?>" class="d-block w-100">
                 <div class="carousel-caption">
                     <h5><?= $meta['title'] ?? 'Untitled' ?></h5>
                     <p><?= $meta['caption'] ?? '' ?> - <strong><?= $meta['author'] ?? 'Unknown' ?></strong></p>
