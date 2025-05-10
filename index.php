@@ -3,6 +3,19 @@ $uploadDir = 'images/';
 $metaDir = 'metadata/';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photo Gallery</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Your Bootstrap Carousel or Other Content Goes Here -->
 
 <!-- Bootstrap Carousel -->
 <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -63,3 +76,8 @@ function refreshCarousel() {
 // Refresh every 30 seconds
 setInterval(refreshCarousel, 30000);
 </script>
+
+    <!-- Bootstrap JavaScript (Including Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
