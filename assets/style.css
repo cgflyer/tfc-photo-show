@@ -28,7 +28,7 @@
     gap: 1rem;
 }
 
-.live-tile-gallery > .column > .img {
+.live-tile-gallery  .column img {
         max-height: 25vh; /* Restrict image height to 25% of viewport height */
         width: 100%; /* Make sure images scale within their columns */
         object-fit: contain; /* Keeps full image visible */
