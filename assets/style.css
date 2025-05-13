@@ -20,8 +20,8 @@
 .live-tile-gallery .row .column {
     grid-column: span 3;
     width: auto;
-    /* height: 100%; 
-    overflow: hidden; */
+    height: 80%; 
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
     gap: 1rem;
