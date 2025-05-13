@@ -1,7 +1,11 @@
 <?php
 $uploadDir = 'images/';
 $metaDir = 'metadata/';
+$gallery_event_title = 'TFC 2025 Poker Run and Picnic';
+$default_image = 'logo-1.jpg';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
+$ltg_tile_columns = 3;
+$ltg_tile_images = 3;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,71 +18,61 @@ $images = array_diff(scandir($uploadDir), ['.', '..']);
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-dark">
 
-    <!-- Your Bootstrap Carousel or Other Content Goes Here -->
+<div class="live-tile-gallery container-fluid">
+        <div class="heading pt-4 ">
+            <h1 class="text-center text-white pt-4"> <?= $gallery_event_title ?> </h1>
+        </div>
 
-<!-- Bootstrap Carousel -->
-<div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <?php $first = true; ?>
-        <?php foreach ($images as $img): ?>
-            <?php
-            $metaFile = $metaDir . pathinfo($img, PATHINFO_FILENAME) . '.meta';
-            $meta = file_exists($metaFile) ? json_decode(file_get_contents($metaFile), true) : [];
-            ?>
-            <div class="carousel-item <?= $first ? 'active' : '' ?>">
-                <img src="<?= $uploadDir . $img ?>" class="d-block w-100">
-                <div class="carousel-caption">
-                    <h5><?= $meta['title'] ?? 'Untitled' ?></h5>
-                    <p><?= $meta['caption'] ?? '' ?> - <strong><?= $meta['author'] ?? 'Unknown' ?></strong></p>
-                </div>
-            </div>
-            <?php $first = false; ?>
-        <?php endforeach; ?>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-</div>
+  <div class="row py-5 px-lg-5 px-sm-0">
+  <?php
+      for ($column_item = 0; $column_item < 3; $column_item++) { ?>
+        <div id="<?= 'ltg-c' . $column_item ?>" class="column">
+          <?php for ($image_item = 0; $image_item < 3; $image_item++) { 
+            $image_id_tag = 'ltg-c'. $column_item . '-i' . $image_item; 
+            $image_class = $image_item + $column_item == 0 ? 'class="h:scale-1"' : ''; ?>
+            <img id="<?= $image_id_tag ?>" src="<?= $uploadDir . $default_image ?>" 
+               <?= $image_class ?> alt="" srcset="">
+          <?php
+          }
+        ?>
+        </div>
+      <?php
+      }
+      ?>
+  </div>
+</div>   
 
 <!-- Link to Upload Page -->
 <a href="upload.php">Upload a New Photo</a>
 
 <!-- AJAX Auto-Refresh -->
 <script>
-function refreshCarousel() {
+function refreshCarousel(grid_rows, grid_cols) {
     fetch('ajax_refresh.php')
         .then(response => response.json())
         .then(data => {
-            let carouselInner = document.querySelector('.carousel-inner');
-            carouselInner.innerHTML = '';
-            let isFirst = true;
-
-            data.forEach(item => {
-                let newSlide = document.createElement('div');
-                newSlide.className = `carousel-item ${isFirst ? 'active' : ''}`;
-                newSlide.innerHTML = `
-                    <img src="${item.image}" class="d-block w-100">
-                    <div class="carousel-caption">
-                        <h5>${item.title}</h5>
-                        <p>${item.caption} - <strong>${item.author}</strong></p>
-                    </div>
-                `;
-                carouselInner.appendChild(newSlide);
-                isFirst = false;
-            });
+            let carouselInner = document.querySelector('.live-tile-gallery.row');
+            let images = [...data];
+            images.sort(() => Math.random() + 0.5);
+            let index = 0;
+            for (r=0; r < grid_rows; r++) {
+                for (c=0; c < grid_cols; c++) {
+                    let image_target = '#ltg-c' + c + '-i' + r;
+                    let image_path = images.length > 0 ? images[index % images.length].image : "<?=$uploadDir . $default_image?>";
+                    document.getElementById(image_target).src = image_path;
+                }
+            }
         });
 }
 
 // Refresh every 30 seconds
-setInterval(refreshCarousel, 30000);
+setInterval(() => refreshCarousel(<?=$ltg_tile_rows?>, <?=$ltg_tile_cols?>), 30000);
 </script>
 
-    <!-- Bootstrap JavaScript (Including Popper.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

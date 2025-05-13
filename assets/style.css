@@ -4,3 +4,16 @@
     margin: auto;
     display: block;
 }
+.live-tile-gallery.row {
+    display: grid;
+    grid-template-columns:  repeat(auto-fit, minmax(100px, 1fr));
+}
+.live-tile-gallery.row.column {
+    grid-column: span 3;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
