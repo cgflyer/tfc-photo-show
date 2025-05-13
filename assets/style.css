@@ -8,6 +8,15 @@
     display: grid;
     grid-template-columns:  repeat(auto-fit, minmax(100px, 1fr));
 }
+.container-fluid {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.live-tile-gallery .row {
+    flex-grow: 1; /* Ensures equal distribution */
+}
+
 .live-tile-gallery .row .column {
     grid-column: span 3;
     width: auto;
