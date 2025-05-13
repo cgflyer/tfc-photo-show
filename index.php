@@ -81,6 +81,10 @@ function refreshCarousel(grid_rows, grid_cols) {
 
 // Refresh every 30 seconds
 setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>), 5000);
+window.onload = function() {
+    refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>);
+ };
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
