@@ -2,7 +2,7 @@
 $uploadDir = 'images/';
 $metaDir = 'metadata/';
 $gallery_event_title = 'TFC 2025 Poker Run and Picnic';
-$default_image = 'logo-1.jpg';
+$default_image = 'Logo2d.jpg';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 $ltg_tile_columns = 3;
 $ltg_tile_images = 3;
