@@ -64,6 +64,7 @@ function refreshCarousel(grid_rows, grid_cols) {
                     let image_target = '#ltg-c' + c + '-i' + r;
                     let image_path = images.length > 0 ? images[index % images.length].image : "<?=$uploadDir . $default_image?>";
                     document.getElementById(image_target).src = image_path;
+                    index += 1;
                 }
             }
         });
