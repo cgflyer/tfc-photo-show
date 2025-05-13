@@ -51,13 +51,22 @@ $ltg_tile_images = 3;
 
 <!-- AJAX Auto-Refresh -->
 <script>
+function shuffleArray(array) {
+    let shuffled = [...array]; // Copy the array
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1)); // Random index
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap
+    }
+    return shuffled;
+}
+
+
 function refreshCarousel(grid_rows, grid_cols) {
     fetch('ajax_refresh.php')
         .then(response => response.json())
         .then(data => {
             let carouselInner = document.querySelector('.live-tile-gallery.row');
-            let images = [...data];
-            images.sort(() => Math.random() + 0.5);
+            let images = shuffleArray(data);
             let index = 0;
             for (r=0; r < grid_rows; r++) {
                 for (c=0; c < grid_cols; c++) {
