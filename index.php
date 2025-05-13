@@ -61,7 +61,7 @@ function refreshCarousel(grid_rows, grid_cols) {
             let index = 0;
             for (r=0; r < grid_rows; r++) {
                 for (c=0; c < grid_cols; c++) {
-                    let image_target = '#ltg-c' + c + '-i' + r;
+                    let image_target = 'ltg-c' + c + '-i' + r;
                     let image_path = images.length > 0 ? images[index % images.length].image : "<?=$uploadDir . $default_image?>";
                     document.getElementById(image_target).src = image_path;
                     index += 1;
