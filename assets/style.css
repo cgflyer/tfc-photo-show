@@ -4,11 +4,11 @@
     margin: auto;
     display: block;
 }
-.live-tile-gallery.row {
+.live-tile-gallery .row {
     display: grid;
     grid-template-columns:  repeat(auto-fit, minmax(100px, 1fr));
 }
-.live-tile-gallery.row.column {
+.live-tile-gallery .row .column {
     grid-column: span 3;
     width: auto;
     height: 100%;
