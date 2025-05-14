@@ -92,7 +92,7 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
                 let r = Math.floor(image_selection[an_image] / grid_rows);
                 let c = image_selection[an_image] % grid_cols;
                 let image_target = 'ltg-c' + c + '-i' + r;
-                let image_path = images.length > 0 ? images[index % images.length].image : "<?=$uploadDir . $default_image?>";
+                let image_path = images.length > 0 ? images[image_selection[an_image]].image : "<?=$uploadDir . $default_image?>";
                 flipImage(image_target, image_path);
             }
         });
