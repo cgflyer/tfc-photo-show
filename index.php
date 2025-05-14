@@ -87,7 +87,9 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
             let index = 0;
             let new_images = Math.floor(grid_rows * grid_cols * replace_pct);
             const image_selection = Array.from({ length: new_images }, () => getRandomInt(0, images.length - 1)); 
-            for (let an_image=0; an_image < image_selection.length; an_image++) {
+            console.log('image_selection length is '.image_selection.length);
+            console.log('image_selection elements are: '.image_selection);
+           for (let an_image=0; an_image < image_selection.length; an_image++) {
                 /* determine which row and col to replace in row-major decode order */
                 let r = Math.floor(image_selection[an_image] / grid_rows);
                 let c = image_selection[an_image] % grid_cols;
