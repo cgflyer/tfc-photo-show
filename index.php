@@ -82,14 +82,12 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     fetch('ajax_refresh.php')
         .then(response => response.json())
         .then(data => {
-            let carouselInner = document.querySelector('.live-tile-gallery.row');
             let images = shuffleArray(data);
-            let index = 0;
             let new_images = Math.ceil(grid_rows * grid_cols * replace_pct);
-            const image_selection = Array.from({ length: new_images }, () => getRandomInt(0, images.length - 1)); 
-            console.log('image_selection length is '.image_selection.length);
-            console.log('image_selection elements are: '.image_selection);
-           for (let an_image=0; an_image < image_selection.length; an_image++) {
+            const image_selection = shuffleArray([...Array(images.length)].map((_, i) => i));
+            console.log('will pick ' . new_images . ' images from array'); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
+            console.log('array selection index is ' . image_selection); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
+           for (let an_image=0; an_image < new_images; an_image++) {
                 /* determine which row and col to replace in row-major decode order */
                 let r = Math.floor(image_selection[an_image] / grid_rows);
                 let c = image_selection[an_image] % grid_cols;
