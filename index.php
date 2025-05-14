@@ -27,6 +27,17 @@ $ltg_tile_replace_pct = 0.33;
         <div class="heading pt-4 ">
             <h1 class="text-center text-white pt-4"> <?= $gallery_event_title ?> </h1>
         </div>
+        <div class="text-center mt-3">
+  <button type="button" class="btn btn-primary" onclick="openUploadPage()">
+    <i class="bi bi-plus-lg"></i>
+  </button>
+</div>
+
+<script>
+function openUploadPage() {
+    window.open("upload.php", "_blank", "width=600,height=400");
+}
+</script>
 
   <div class="row py-5 px-lg-5 px-sm-0">
   <?php
@@ -51,17 +62,6 @@ $ltg_tile_replace_pct = 0.33;
   </div>
 </div>   
 
-<div class="text-center mt-3">
-  <button type="button" class="btn btn-primary" onclick="openUploadPage()">
-    <i class="bi bi-plus-lg"></i>
-  </button>
-</div>
-
-<script>
-function openUploadPage() {
-    window.open("upload.php", "_blank", "width=600,height=400");
-}
-</script>
 
 <!-- AJAX Auto-Refresh -->
 <script>
