@@ -59,13 +59,15 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['photo'])) {
                 <!-- Tail Number (Optional) -->
                 <div class="mb-3">
                     <label for="tailNumber" class="form-label">Tail Number</label>
-                    <input type="text" class="form-control" id="tailNumber" name="tailNumber" placeholder="Enter tail number">
+                    <input type="text" class="form-control" id="tailNumber" value="<?= $tailNumber ?>"
+                        name="tailNumber" placeholder="Enter tail number">
                 </div>
 
                 <!-- Location (Optional) -->
                 <div class="mb-3">
-                    <label for="location" class="form-label">Location (Airport Code)
-                    <input type="text" class="form-control" id="location" name="location" placeholder="Enter location">
+                    <label for="location" class="form-label">Location (Airport "Code)
+                    <input type="text" class="form-control" id="location" value="<?= $location ?>"
+                         name="location" placeholder="Enter location">
                 </div>
 
                 <!-- Caption (Optional) -->
