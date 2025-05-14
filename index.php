@@ -51,8 +51,17 @@ $ltg_tile_replace_pct = 0.33;
   </div>
 </div>   
 
-<!-- Link to Upload Page -->
-<a href="upload.php">Upload a New Photo</a>
+<div class="text-center mt-3">
+  <button type="button" class="btn btn-primary" onclick="openUploadPage()">
+    <i class="bi bi-plus-lg"></i>
+  </button>
+</div>
+
+<script>
+function openUploadPage() {
+    window.open("upload.php", "_blank", "width=600,height=400");
+}
+</script>
 
 <!-- AJAX Auto-Refresh -->
 <script>
@@ -108,6 +117,8 @@ window.onload = function() {
  };
 
 </script>
+<!-- Include Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
