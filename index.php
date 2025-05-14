@@ -6,6 +6,7 @@ $default_image = 'Logo2d.jpg';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 $ltg_tile_columns = 3;
 $ltg_tile_images = 3;
+$ltg_tile_replace_pct = 0.33;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +34,13 @@ $ltg_tile_images = 3;
         <div id="<?= 'ltg-c' . $column_item ?>" class="column">
           <?php for ($image_item = 0; $image_item < 3; $image_item++) { 
             $image_id_tag = 'ltg-c'. $column_item . '-i' . $image_item; 
-            $image_class = $image_item + $column_item == 0 ? 'class="h:scale-1"' : ''; ?>
-            <img id="<?= $image_id_tag ?>" src="<?= $uploadDir . $default_image ?>" 
-               <?= $image_class ?> alt="" srcset="">
+            $image_class = 'flip-transition' . 
+               ($image_item + $column_item == 0 ? ' h:scale-1' : '');
+             ?>
+            <div class="flip-container">
+              <img id="<?= $image_id_tag ?>" src="<?= $uploadDir . $default_image ?>" 
+                 class="<?= $image_class ?>" alt="" srcset=""/>
+            </div>
           <?php
           }
         ?>
@@ -60,29 +65,50 @@ function shuffleArray(array) {
     return shuffled;
 }
 
+function flipImage(imageId, newSrc) {
+    let img = document.getElementById(imageId);
+    img.classList.add("flip"); 
+    setTimeout(() => {
+        img.src = newSrc;
+        img.classList.remove("flip");
+    }, 800);
+}
 
-function refreshCarousel(grid_rows, grid_cols) {
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const N = 10;
+const randomNumbers = 
+
+console.log(randomNumbers);
+
+function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     fetch('ajax_refresh.php')
         .then(response => response.json())
         .then(data => {
             let carouselInner = document.querySelector('.live-tile-gallery.row');
             let images = shuffleArray(data);
             let index = 0;
-            for (r=0; r < grid_rows; r++) {
-                for (c=0; c < grid_cols; c++) {
-                    let image_target = 'ltg-c' + c + '-i' + r;
-                    let image_path = images.length > 0 ? images[index % images.length].image : "<?=$uploadDir . $default_image?>";
-                    document.getElementById(image_target).src = image_path;
-                    index += 1;
-                }
+            let new_images = Math.floor(grid_rows * grid_cols * replace_pct);
+            const image_selection = Array.from({ length: new_images }, () => getRandomInt(0, images.length - 1)); 
+            for (let an_image=0; an_image < image_selection.length; an_image++) {
+                /* determine which row and col to replace in row-major decode order */
+                let r = Math.floor(image_selection[an_image] / grid_rows);
+                let c = image_selection[an_image] % grid_cols;
+                let image_target = 'ltg-c' + c + '-i' + r;
+                let image_path = images.length > 0 ? image_path;
+                flipImage(image_target, image_path);
             }
         });
 }
 
 // Refresh every 30 seconds
-setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>), 5000);
+setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, 
+    <?=$ltg_tile_columns?>,
+    <?=$ltg_tile_replace_pct?>), 5000);
 window.onload = function() {
-    refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>);
+    refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>, <?=$ltg_tile_replace_pct?>);
  };
 
 </script>

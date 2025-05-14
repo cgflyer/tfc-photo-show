@@ -34,3 +34,16 @@
         object-fit: contain; /* Keeps full image visible */
 
 }
+
+.flip-container {
+    perspective: 1000px;
+}
+
+.flip-transition {
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-transition.flip {
+    transform: rotateY(180deg);
+}
