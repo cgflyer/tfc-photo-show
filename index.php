@@ -85,7 +85,7 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
             let carouselInner = document.querySelector('.live-tile-gallery.row');
             let images = shuffleArray(data);
             let index = 0;
-            let new_images = Math.floor(grid_rows * grid_cols * replace_pct);
+            let new_images = Math.ceil(grid_rows * grid_cols * replace_pct);
             const image_selection = Array.from({ length: new_images }, () => getRandomInt(0, images.length - 1)); 
             console.log('image_selection length is '.image_selection.length);
             console.log('image_selection elements are: '.image_selection);
