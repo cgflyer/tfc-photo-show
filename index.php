@@ -78,11 +78,6 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const N = 10;
-const randomNumbers = 
-
-console.log(randomNumbers);
-
 function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     fetch('ajax_refresh.php')
         .then(response => response.json())
@@ -107,6 +102,7 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
 setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, 
     <?=$ltg_tile_columns?>,
     <?=$ltg_tile_replace_pct?>), 5000);
+
 window.onload = function() {
     refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>, <?=$ltg_tile_replace_pct?>);
  };
