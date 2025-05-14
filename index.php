@@ -6,7 +6,7 @@ $default_image = 'Logo2d.jpg';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 $ltg_tile_columns = 3;
 $ltg_tile_images = 3;
-$ltg_tile_replace_pct = 0.33;
+$ltg_tile_replace_pct = 0.22;
 ?>
 <!DOCTYPE html>
 <html lang="en">
