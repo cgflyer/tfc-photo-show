@@ -1,5 +1,11 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['photo'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  // Read query parameters safely
+  $tailNumber = isset($_GET['tailNumber']) ? htmlspecialchars($_GET['tailNumber']) : '';
+  $location = isset($_GET['location']) ? htmlspecialchars($_GET['location']) : '';
+}
+
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['photo'])) {
     // Define directories
     $uploadDir = __DIR__ . '/images/';
     $metaDir = __DIR__ . '/metadata/';
