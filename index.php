@@ -6,7 +6,7 @@ $default_image = 'Logo2d.jpg';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 $ltg_tile_columns = 3;
 $ltg_tile_images = 3;
-$ltg_tile_replace_pct = 0.11;
+$ltg_tile_replace_pct = 0.33;
 // still todo: when image is clicked display modal-popup with data for that image
 // but we have a problem that the underlying grid will try to refresh the image
 // so we have to suspend the refresh when the modal is displayed.
