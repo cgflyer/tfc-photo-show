@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // read config for event token to use
     // Load the config file
     $config = parse_ini_file("config.ini");
-    error_log("parsed config as string: " .  implode(", ", $firstFiveKeys(array_slice($config,0,5))));
+    error_log("parsed config as string: " .  implode(", ", array_slice($config,0,5)));
 
    // Read a specific setting
    $event_token = $config['event_token'];
