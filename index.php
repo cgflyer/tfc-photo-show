@@ -144,7 +144,7 @@ function formatMetadata(input = {}) {
         "location": input.location ?? ""
      };
 }
-let ajax_data;
+let ajax_data = [];
 function refreshImages() {
     fetch('ajax_refresh.php')
         .then(response => response.json())
@@ -155,6 +155,10 @@ function refreshImages() {
 
 function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     let images = shuffleArray(ajax_data);
+    images.push({"image": "<?= $default_image ?>",
+    "location": "TKI",
+    "caption": "TFC"
+});
     let new_images = Math.ceil(grid_rows * grid_cols * replace_pct);
     const image_selection = shuffleArray([...Array(images.length)].map((_, i) => i));
     console.log(`will pick ${new_images} images from array`); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
