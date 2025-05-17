@@ -189,6 +189,7 @@ function stop_carousel() {
 }
 
 window.onload = function() {
+    refreshImages();
     refreshCarousel(<?=$ltg_tile_images?>,<?=$ltg_tile_columns?>,
         0.88
     );
