@@ -144,32 +144,39 @@ function formatMetadata(input = {}) {
         "location": input.location ?? ""
      };
 }
-function refreshCarousel(grid_rows, grid_cols, replace_pct) {
+let ajax_data;
+function refreshImages() {
     fetch('ajax_refresh.php')
         .then(response => response.json())
         .then(data => {
-            let images = shuffleArray(data);
-            let new_images = Math.ceil(grid_rows * grid_cols * replace_pct);
-            const image_selection = shuffleArray([...Array(images.length)].map((_, i) => i));
-            console.log(`will pick ${new_images} images from array`); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
-            console.log(`array selection index is ${image_selection}`); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
-           for (let an_image=0; an_image < new_images; an_image++) {
-                /* determine which row and col to replace in row-major decode order */
-                let r = Math.floor(image_selection[an_image] / grid_rows);
-                let c = image_selection[an_image] % grid_cols;
-                let image_target = 'ltg-c' + c + '-i' + r;
-                let image_path = images.length > 0 ? images[image_selection[an_image]].image : "<?=$uploadDir . $default_image?>";
-                metadata[image_target] = formatMetadata(images[image_selection[an_image]]);
-                flipImage(image_target, image_path);
-            }
+            ajax_data = Array.from(data);
         });
 }
+
+function refreshCarousel(grid_rows, grid_cols, replace_pct) {
+    let images = shuffleArray(ajax_data);
+    let new_images = Math.ceil(grid_rows * grid_cols * replace_pct);
+    const image_selection = shuffleArray([...Array(images.length)].map((_, i) => i));
+    console.log(`will pick ${new_images} images from array`); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
+    console.log(`array selection index is ${image_selection}`); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
+    for (let an_image=0; an_image < new_images; an_image++) {
+        /* determine which row and col to replace in row-major decode order */
+        let r = Math.floor(image_selection[an_image] / grid_rows);
+        let c = image_selection[an_image] % grid_cols;
+        let image_target = 'ltg-c' + c + '-i' + r;
+        let image_path = images.length > 0 ? images[image_selection[an_image]].image : "<?=$uploadDir . $default_image?>";
+        metadata[image_target] = formatMetadata(images[image_selection[an_image]]);
+        flipImage(image_target, image_path);
+    }
+}
+setInterval(() => refreshImages(), 30000);
+
 let carousel_timer;
 // Refresh every 30 seconds
 function start_carousel() {
 carousel_timer = setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, 
     <?=$ltg_tile_columns?>,
-    <?=$ltg_tile_replace_pct?>), 8000);
+    <?=$ltg_tile_replace_pct?>), 5000);
 }
 
 function stop_carousel() {

@@ -10,7 +10,7 @@ foreach ($images as $img) {
     
     $data[] = [
         'image' => $uploadDir . $img,
-        'tailNumber' => $meta['tailNUmber'] ?? 'Untitled',
+        'tailNumber' => $meta['tailNumber'] ?? '',
         'location' => $meta['location'] ?? 'Unknown',
         'caption' => $meta['caption'] ?? '',
     ];
