@@ -58,9 +58,12 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['photo'])) {
             'upload_date' => date('Y-m-d H:i:s'),
         ];
         file_put_contents($metaPath, json_encode($metadata, JSON_PRETTY_PRINT));
+        header("Location: index.php");
         echo '<p>Upload successful! <a href="index.php">See Gallery</a></p>';
+        exit;
     } else {
         echo '<p>Error uploading file.</p>';
+        exit;
     }
 }
 ?>
