@@ -165,10 +165,10 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     console.log(`array selection index is ${image_selection}`); // Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]            let index = 0;
     for (let an_image=0; an_image < new_images; an_image++) {
         /* determine which row and col to replace in row-major decode order */
-        let r = Math.floor(image_selection[an_image] / grid_rows);
-        let c = image_selection[an_image] % grid_cols;
-        let image_target = 'ltg-c' + c + '-i' + r;
         let selected_index = an_image % image_selection.length;
+        let r = Math.floor(image_selection[selected_index] / grid_rows);
+        let c = image_selection[selected_index] % grid_cols;
+        let image_target = 'ltg-c' + c + '-i' + r;
         let image_path = images[image_selection[selected_index]].image;
         metadata[image_target] = formatMetadata(images[image_selection[selected_index]]);
         flipImage(image_target, image_path);
