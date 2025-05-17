@@ -93,7 +93,32 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+let metadata = {};
 
+// Event listener for image clicks
+document.querySelectorAll('.clickable-image').forEach(image => {
+    image.addEventListener('click', () => {
+        const imageId = image.getAttribute('data-id');
+        const modalImage = document.getElementById('modalImage');
+        const modalMetadata = document.getElementById('modalMetadata');
+
+        modalImage.src = image.src;
+        modalMetadata.innerHTML = `<strong>${metadata[imageId].tailNumber}</strong>
+        <br><strong>${metadata[imageId].location}</strong>
+        <br>${metadata[imageId].caption}`;
+
+        // Show Bootstrap modal
+        const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+        modal.show();
+    });
+});
+
+function formatMetadata(input = {}) {
+    return { "caption" : input.caption ?? "",
+        "tailNumber" : input.tailNumber ?? "",
+        "location": input.location ?? ""
+     };
+}
 function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     fetch('ajax_refresh.php')
         .then(response => response.json())
@@ -109,7 +134,7 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
                 let c = image_selection[an_image] % grid_cols;
                 let image_target = 'ltg-c' + c + '-i' + r;
                 let image_path = images.length > 0 ? images[image_selection[an_image]].image : "<?=$uploadDir . $default_image?>";
-                let image_data = images.length > 0 ? images[image_selection[an_image]] : {};
+                metadata[image_target] = formatMetadata(images[image_selection[an_image]]);
                 flipImage(image_target, image_path, image_data);
             }
         });
