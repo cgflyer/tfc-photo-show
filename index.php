@@ -79,7 +79,7 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-function flipImage(imageId, newSrc, imageData) {
+function flipImage(imageId, newSrc) {
     let img = document.getElementById(imageId);
     img.classList.add("flip"); 
 
@@ -135,7 +135,7 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
                 let image_target = 'ltg-c' + c + '-i' + r;
                 let image_path = images.length > 0 ? images[image_selection[an_image]].image : "<?=$uploadDir . $default_image?>";
                 metadata[image_target] = formatMetadata(images[image_selection[an_image]]);
-                flipImage(image_target, image_path, image_data);
+                flipImage(image_target, image_path);
             }
         });
 }
