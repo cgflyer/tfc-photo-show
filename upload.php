@@ -1,5 +1,26 @@
 <?php
+function base64_url_encode($data) {
+    return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // read config for event token to use
+    // Load the config file
+    $config = parse_ini_file("config.ini");
+
+   // Read a specific setting
+   $event_token = $config['event_token'];
+   $expected_token = base64_url_encode($event_token)
+
+   // require b64decode of event_token parameter to match expected config
+  $received_token = isset($_GET['token']) ? htmlspecialchars($_GET['token']) : '';
+
+    if ($received_token != $expected_token) {
+        header("HTTP/1.1 403 Forbidden");
+        echo "Access Denied: You do not have permission to view this page.";
+        exit();
+    }
+
   // Read query parameters safely
   $tailNumber = isset($_GET['tailNumber']) ? htmlspecialchars($_GET['tailNumber']) : '';
   $location = isset($_GET['location']) ? htmlspecialchars($_GET['location']) : '';
@@ -35,7 +56,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['photo'])) {
             'upload_date' => date('Y-m-d H:i:s'),
         ];
         file_put_contents($metaPath, json_encode($metadata, JSON_PRETTY_PRINT));
-        echo '<p>Upload successful!</p>';
+        echo '<p>Upload successful! <a href="index.php">See Gallery</a></p>';
     } else {
         echo '<p>Error uploading file.</p>';
     }
@@ -56,8 +77,8 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['photo'])) {
         <div class="form-container">
             <h2 class="text-center text-primary"><i class="bi bi-cloud"></i> Upload Image</h2>
             <form action="upload.php" method="post" enctype="multipart/form-data">
-                <!-- Tail Number (Optional) -->
-                <div class="mb-3">
+                <!-- Tailnumber -->
+                 <div class="mb-3">
                     <label for="tailNumber" class="form-label">Tail Number</label>
                     <input type="text" class="form-control" id="tailNumber" value="<?= $tailNumber ?>"
                         name="tailNumber" placeholder="Enter tail number">
