@@ -6,7 +6,10 @@ $default_image = 'Logo2d.jpg';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 $ltg_tile_columns = 3;
 $ltg_tile_images = 3;
-$ltg_tile_replace_pct = 0.22;
+$ltg_tile_replace_pct = 0.11;
+// still todo: when image is clicked display modal-popup with data for that image
+// but we have a problem that the underlying grid will try to refresh the image
+// so we have to suspend the refresh when the modal is displayed.
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +54,8 @@ function openUploadPage() {
              ?>
             <div class="flip-container">
               <img id="<?= $image_id_tag ?>" src="<?= $uploadDir . $default_image ?>" 
-                 class="<?= $image_class ?>" alt="" srcset=""/>
+                 class="<?= $image_class ?> img-fluid clickable-image"
+                 alt="" srcset=""/>
             </div>
           <?php
           }
@@ -75,9 +79,10 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-function flipImage(imageId, newSrc) {
+function flipImage(imageId, newSrc, imageData) {
     let img = document.getElementById(imageId);
     img.classList.add("flip"); 
+
     setTimeout(() => {
         img.src = newSrc;
         img.classList.remove("flip");
@@ -87,6 +92,7 @@ function flipImage(imageId, newSrc) {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 
 function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     fetch('ajax_refresh.php')
@@ -103,18 +109,25 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
                 let c = image_selection[an_image] % grid_cols;
                 let image_target = 'ltg-c' + c + '-i' + r;
                 let image_path = images.length > 0 ? images[image_selection[an_image]].image : "<?=$uploadDir . $default_image?>";
-                flipImage(image_target, image_path);
+                let image_data = images.length > 0 ? images[image_selection[an_image]] : {};
+                flipImage(image_target, image_path, image_data);
             }
         });
 }
-
+let carousel_timer;
 // Refresh every 30 seconds
-setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, 
+function start_carousel() {
+carousel_timer = setInterval(() => refreshCarousel(<?=$ltg_tile_images?>, 
     <?=$ltg_tile_columns?>,
-    <?=$ltg_tile_replace_pct?>), 5000);
+    <?=$ltg_tile_replace_pct?>), 8000);
+}
+
+function stop_carousel() {
+    clearInterval(carousel_timer);
+}
 
 window.onload = function() {
-    refreshCarousel(<?=$ltg_tile_images?>, <?=$ltg_tile_columns?>, <?=$ltg_tile_replace_pct?>);
+    start_carousel();
  };
 
 </script>
