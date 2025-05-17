@@ -169,7 +169,7 @@ function refreshCarousel(grid_rows, grid_cols, replace_pct) {
         let c = image_selection[an_image] % grid_cols;
         let image_target = 'ltg-c' + c + '-i' + r;
         let selected_index = an_image % image_selection.length;
-        let image_path = images[image_selection[selected_index]].image : "<?=$uploadDir . $default_image?>";
+        let image_path = images[image_selection[selected_index]].image;
         metadata[image_target] = formatMetadata(images[image_selection[selected_index]]);
         flipImage(image_target, image_path);
     }
