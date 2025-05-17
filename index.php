@@ -55,6 +55,7 @@ function openUploadPage() {
             <div class="flip-container">
               <img id="<?= $image_id_tag ?>" src="<?= $uploadDir . $default_image ?>" 
                  class="<?= $image_class ?> img-fluid clickable-image"
+                 data-id="<?= $image_id_tag ?>"
                  alt="" srcset=""/>
             </div>
           <?php
