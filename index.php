@@ -66,6 +66,22 @@ function openUploadPage() {
       ?>
   </div>
 </div>   
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Metadata</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid mb-2" alt="">
+                <p id="modalMetadata"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- AJAX Auto-Refresh -->
@@ -93,11 +109,19 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Resume the method when modal closes
+document.getElementById('imageModal').addEventListener('hidden.bs.modal', () => {
+    start_carousel();
+});
+
+
+
 let metadata = {};
 
 // Event listener for image clicks
 document.querySelectorAll('.clickable-image').forEach(image => {
     image.addEventListener('click', () => {
+        stop_carousel();
         const imageId = image.getAttribute('data-id');
         const modalImage = document.getElementById('modalImage');
         const modalMetadata = document.getElementById('modalMetadata');
