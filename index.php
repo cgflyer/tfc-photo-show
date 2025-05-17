@@ -126,11 +126,11 @@ document.querySelectorAll('.clickable-image').forEach(image => {
         const imageId = image.getAttribute('data-id');
         const modalImage = document.getElementById('modalImage');
         const modalMetadata = document.getElementById('modalMetadata');
+        const modelReference = document.getElementById('imageModalLabel');
 
         modalImage.src = image.src;
-        modalMetadata.innerHTML = `<strong>${metadata[imageId].tailNumber}</strong>
-        <br><strong>${metadata[imageId].location}</strong>
-        <br>${metadata[imageId].caption}`;
+        modelReference.innerHTML = `<strong>${metadata[imageId].tailNumber} at ${metadata[imageId].location}</strong>`;
+        modalMetadata.innerHTML = `<strong>${metadata[imageId].caption}</strong>`;
 
         // Show Bootstrap modal
         const modal = new bootstrap.Modal(document.getElementById('imageModal'));
