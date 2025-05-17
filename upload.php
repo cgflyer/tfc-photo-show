@@ -7,14 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // read config for event token to use
     // Load the config file
     $config = parse_ini_file("config.ini");
+    error_log("parsed config: " . config);
 
    // Read a specific setting
    $event_token = $config['event_token'];
    $expected_token = base64_url_encode($event_token);
+   error_log("expected token is: " . $expected_token);
 
    // require b64decode of event_token parameter to match expected config
   $received_token = isset($_GET['token']) ? htmlspecialchars($_GET['token']) : '';
-
+    error_log("received token is: " . $received_token);
     if ($received_token != $expected_token) {
         header("HTTP/1.1 403 Forbidden");
         echo "Access Denied: You do not have permission to view this page.";
