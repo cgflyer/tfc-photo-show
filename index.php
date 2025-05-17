@@ -188,15 +188,11 @@ function stop_carousel() {
     clearInterval(carousel_timer);
 }
 
-function first_display_carousel(data) {
+window.onload = function() {
+    refreshImages();
     refreshCarousel(<?=$ltg_tile_images?>,<?=$ltg_tile_columns?>,
         0.88
-        );
-}
-
-window.onload = function() {
-    refreshImages().then(first_display_carousel);
-        
+    );
     start_carousel();
  };
 
