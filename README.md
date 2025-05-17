@@ -18,4 +18,7 @@ post items with pre-filled metadata.
 # TODO
 * would be nice to include a settings page for changing the size of the grid and the timing and speed of the photo replacement.
 * an export of the page would allow for a way to post the page as new content in the website CMS - this would take more effort
+* secure the input with an event token generated at runtime and included in qr code
+* validate the file input type
+
 

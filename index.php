@@ -27,10 +27,13 @@ $ltg_tile_replace_pct = 0.22;
         <div class="heading pt-4 ">
             <h1 class="text-center text-white pt-4"> <?= $gallery_event_title ?> </h1>
         </div>
+        <!-- disabling button so only local users with qr code can submit 
         <div class="text-center mt-3">
-  <button type="button" class="btn btn-primary" onclick="openUploadPage()">
-    <i class="bi bi-plus-lg"></i>
-  </button>
+          <button type="button" class="btn btn-primary" onclick="openUploadPage()">
+            <i class="bi bi-plus-lg"></i>
+          </button>
+        </div>
+--> 
 </div>
 
 <script>

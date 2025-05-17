@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
    // Read a specific setting
    $event_token = $config['event_token'];
-   $expected_token = base64_url_encode($event_token)
+   $expected_token = base64_url_encode($event_token);
 
    // require b64decode of event_token parameter to match expected config
   $received_token = isset($_GET['token']) ? htmlspecialchars($_GET['token']) : '';
