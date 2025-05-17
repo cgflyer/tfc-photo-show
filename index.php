@@ -155,7 +155,7 @@ function refreshImages() {
 
 function refreshCarousel(grid_rows, grid_cols, replace_pct) {
     let images = shuffleArray(ajax_data);
-    images.push({"image": "<?= $default_image ?>",
+    images.push({"image": "<?= $uploadDir . $default_image ?>",
     "location": "TKI",
     "caption": "TFC"
 });
